@@ -1,7 +1,7 @@
 import { cyan } from 'colors'
 import { writeFile } from 'fs'
 import { cwd } from 'process'
-import tronConfig from '../../tronConfig/tronconfig'
+import tronConfig from '../../config/tronConfig'
 
 function generateTronConfigFile (path?: string) {
   console.log(cyan('Creating tronconfig.json file...'))
