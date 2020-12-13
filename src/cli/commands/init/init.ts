@@ -3,18 +3,19 @@ import { writeFile } from 'fs'
 import { cwd } from 'process'
 import tronConfig from '../../config/tronConfig'
 
-function generateTronConfigFile (path?: string) {
-  console.log(cyan('Creating tronconfig.json file...'))
+export const getFullDirPath = (path?: string): string => `${path ?? cwd()}/tronconfig.json`
 
-  const json = JSON.stringify(tronConfig, null, 2)
-  const dir = path ?? cwd()
-  const fullPath = `${dir}/tronconfig.json`
+export const getJsonFile = (file: unknown): string => JSON.stringify(file, null, 2)
 
-  writeFile(fullPath, json, (err) => err ? console.error(err) : null)
-}
+export const generateTronConfigFile = (path: string, file: string): void => writeFile(path, file, (err) => err ? console.error(err) : null)
 
 function init (path?: string): void {
-  generateTronConfigFile(path)
+  console.log(cyan('Creating tronconfig.json file...'))
+
+  const fullPath = getFullDirPath(path)
+  const file = getJsonFile(tronConfig)
+
+  generateTronConfigFile(fullPath, file)
 }
 
 export default init
