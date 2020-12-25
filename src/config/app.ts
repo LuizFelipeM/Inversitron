@@ -6,17 +6,15 @@ import { InversifyExpressServer } from 'inversify-express-utils'
 import { Container } from 'inversify'
 
 export function app (container: Container): void {
-  const server = new InversifyExpressServer(
-    container,
-    null,
-    {
-      rootPath: process.env.ROOT_PATH ?? '/'
-    })// new InversifyExpressServer(DIContainer, null, null, null, AuthProvider)
+  const rootPath = process.env.ROOT_PATH ?? '/'
+
+  const server = new InversifyExpressServer(container, null, { rootPath })
+  // new InversifyExpressServer(DIContainer, null, null, null, AuthProvider)
 
   server.setConfig(app => {
     app.use(
       cors({
-        origin: process.env.CORS_ORIGIN ?? '*',
+        origin: process.env.CORS_ORIGIN,
         optionsSuccessStatus: 200
       })
     )
@@ -30,7 +28,7 @@ export function app (container: Container): void {
     process.env.PORT,
     () => console.log(
       'Server is now running on:'.green,
-      `${process.env.HOST}:${process.env.PORT}${process.env.ROOT_PATH ?? ''}\n`.cyan
+      `${process.env.HOST}:${process.env.PORT}${rootPath}\n`.cyan
     )
   )
 }

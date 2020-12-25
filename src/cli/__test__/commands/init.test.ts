@@ -1,24 +1,6 @@
-import { getFullDirPath, getJsonFile } from '../../commands/init/init'
+import { getJsonFile } from '../../commands/init/init'
 
 describe('tron init command', () => {
-  it('should get full directory path without parameter', () => {
-    const path = getFullDirPath()
-
-    expect(path).not.toBeNull()
-    expect(path).not.toBeUndefined()
-    expect(path).toEqual(expect.stringContaining('tronconfig.json'))
-  })
-
-  it('should get full directory path with parameter', () => {
-    const pathParam = 'src/test'
-    const path = getFullDirPath(pathParam)
-
-    expect(path).not.toBeNull()
-    expect(path).not.toBeUndefined()
-    expect(path).toEqual(expect.stringContaining('tronconfig.json'))
-    expect(path).toEqual(expect.stringContaining(pathParam))
-  })
-
   it('should return json string', () => {
     const obj = {
       id: 123,
@@ -32,4 +14,25 @@ describe('tron init command', () => {
     expect(json).not.toBeUndefined()
     expect(json).toEqual(expect.stringContaining(JSON.stringify(obj, null, 2)))
   })
+
+  // it('should write file to path location', () => {
+  //   const path = cwd()
+  //   const fileName = 'mock.json'
+  //   const mockFullPath = join(path, fileName)
+
+  //   const mock = { id: 123, name: 'mock' }
+  //   const mockJson = JSON.stringify(mock)
+
+  //   writeFilesToPath(path)(mockJson, fileName)
+
+  //   const json = readFileSync(mockFullPath, 'utf-8')
+
+  //   expect(json).not.toBeNull()
+  //   expect(json).not.toBeUndefined()
+  //   expect(json).toEqual(mockJson)
+
+  //   const file = JSON.parse(json)
+
+  //   expect(file).toEqual(mock)
+  // })
 })

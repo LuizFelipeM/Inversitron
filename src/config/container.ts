@@ -1,15 +1,18 @@
 import { glob } from 'glob'
 import { Container, interfaces } from 'inversify'
 import { join } from 'path'
+import { cwd } from 'process'
 
 type FileContent = {
   [x: string]: interfaces.ServiceIdentifier<unknown>
 }
 
 export function buildContainer (): Promise<Container> {
-  const repositoriesPath = join(process.cwd(), 'repositories')
-  const servicesPath = join(process.cwd(), 'services')
-  const controllersPath = join(process.cwd(), 'controllers')
+  const dir = cwd()
+
+  const repositoriesPath = join(dir, process.env.REPOSITORIES ?? 'repositories')
+  const servicesPath = join(dir, process.env.SERVICES ?? 'services')
+  const controllersPath = join(dir, process.env.CONTROLLERS ?? 'controllers')
 
   const promiseContainer = new Promise<Container>((resolve, reject) => {
     try {

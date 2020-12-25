@@ -1,1 +1,1 @@
-export const isDevEnv = (): boolean => process.env.ENV === 'DEV'
+export const isDevEnv: boolean = process.env.NODE_ENV === 'DEV'

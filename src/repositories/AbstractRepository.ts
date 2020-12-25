@@ -9,9 +9,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
   constructor (
     @unmanaged()
       entity: EntityTarget<T>
-  ) {
-    this.session = getRepository(entity)
-  }
+  ) { this.session = getRepository(entity) }
 
   select = async (where?: FindConditions<T>): Promise<T[]> => await this.session.find(where)
 

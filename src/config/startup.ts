@@ -1,11 +1,11 @@
 import { app } from './app'
 import { buildContainer } from './container'
-import dbConnection from './database/dbConnection'
+import dbConnect from './dbConnect'
 
 Promise
   .all([
     buildContainer(),
-    dbConnection()
+    dbConnect()
   ])
   .then(([container]) => app(container))
   .catch((err) => console.error('Startup'.red, err))

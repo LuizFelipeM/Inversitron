@@ -12,19 +12,21 @@ program
 // init command
 program
   .command('init [path]')
-  .description('Create the tron configuration json file used by Tron and Inversitron')
+  .description('create the tron configuration json file used by Tron and Inversitron')
+  .option('-a, --all', 'Create all folders and files to DDD project structure')
   .action(init)
 
 // dev command
 program
   .command('dev')
-  .description('Run the Inversitron app in development mode')
+  .description('run the Inversitron app in development mode')
+  .option('-c, --config <file>', 'Specify an alternative path to the tronconfig.json file')
   .action(dev)
 
 // build command
 program
   .command('build')
-  .description('Build the Inversitron app to be used in production environment')
+  .description('build the Inversitron app to be used in production environment')
   .action(build)
 
 program.parse(process.argv)
