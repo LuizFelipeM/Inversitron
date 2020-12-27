@@ -1,9 +1,9 @@
-<h1 align="center">
+<h1 align="left">
     <img
-        width="35"
-        alt="ts-node"
-        title="ts-node"
-        src="https://user-images.githubusercontent.com/12243763/33518868-6e2595c4-d76a-11e7-8260-31b4e8110c93.png"
+        width="50"
+        alt="inversitron"
+        title="inversitron"
+        src="https://i.ibb.co/ZBSnrGY/inversitron.jpg"
     />
     Inversitron
 </h1>
@@ -16,7 +16,7 @@ Simple DDD based web framework.
     - [Setup](#setup)
     - [Running in development mode](#running-in-development-mode)
     - [Build application for production](#build-application-for-production)
-- [Removing Example Files](#removing-example-files)
+- [Usage Examples](#usage-examples)
 
 
 ## About 
@@ -117,4 +117,9 @@ export class ExampleController extends AbstractController<Post, PostService> {
 }
 ```
 
-With all files you could run the application in development mode with Tron CLI and test the route in `http://localhost:8080/api/post/getAll`, the Abstract Controller/Service/Repository already has all code needed to the basic implementation of CRUD with the routes `GET: getAll`, `GET: /getById/:id`, `POST: /`, `PATCH: /` and `DELETE: /`.
+With all files you could run the application in development mode with Tron CLI and test the route in `http://localhost:8080/api/post/getAll`, the Abstract Controller/Service/Repository already has all code needed to the basic implementation of CRUD with the routes:
+- GET: `/getAll`
+- GET: `/getById/:id`
+- POST: `/`
+- PATCH: `/`
+- DELETE: `/`
