@@ -1,7 +1,9 @@
 import { cyan } from 'colors'
 
-function build (): void {
+function buildProductionApp (): void {
   console.log(cyan('Building project'))
 }
+
+const build = (): void => buildProductionApp()
 
 export default build

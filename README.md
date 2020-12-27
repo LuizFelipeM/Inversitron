@@ -1,14 +1,12 @@
 <h1 align="left">
-    <img
-        width="50"
-        alt="inversitron"
-        title="inversitron"
-        src="https://i.ibb.co/ZBSnrGY/inversitron.jpg"
-    />
-    Inversitron
+  <img
+    alt="inversitron"
+    title="inversitron"
+    src="https://i.ibb.co/XFwrCRW/Inversitron-full-logo.png"
+  />
 </h1>
 
-Simple DDD based web framework.
+Simple DDD based micro web framework.
 
 ## Table of contents
 - [About](#about)
@@ -21,7 +19,7 @@ Simple DDD based web framework.
 
 ## About 
 
-Inversitron is a simple framework based on InversifyJS, TypeORM and Express, aiming to improve performance when building projects based on Domain Driven Design stategies, ensuring improvement on code style standards, provisioning good starting point to projects that will be using OOP as standard paradigm, helping with DDD approach setting up DI Container using the InversifyJS, give good starting point to API projects with `AbstractController` simple setup and all can be connected to PostgreSQL (currently this is the only option available, will be fixed soon) easily with TypeORM pre configured.
+Inversitron is a simple micro framework based on InversifyJS, TypeORM and Express, aiming to improve performance when building projects based on Domain Driven Design stategies, ensuring improvement on code style standards, provisioning good starting point to projects that will be using OOP as standard paradigm, helping with DDD approach setting up DI Container using the InversifyJS, give good starting point to API projects with `AbstractController` simple setup and all can be connected to PostgreSQL (currently this is the only option available, will be fixed soon) easily with TypeORM pre configured.
 
 ## Getting Started
 
