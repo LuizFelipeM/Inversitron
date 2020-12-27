@@ -10,9 +10,9 @@ type FileContent = {
 export function buildContainer (): Promise<Container> {
   const dir = cwd()
 
-  const repositoriesPath = join(dir, process.env.REPOSITORIES ?? 'repositories')
-  const servicesPath = join(dir, process.env.SERVICES ?? 'services')
-  const controllersPath = join(dir, process.env.CONTROLLERS ?? 'controllers')
+  const repositoriesPath = join(dir, process.env.REPOS_P ?? './src/repositories')
+  const servicesPath = join(dir, process.env.SERVS_P ?? './src/services')
+  const controllersPath = join(dir, process.env.CTRLS_P ?? './src/controllers')
 
   const promiseContainer = new Promise<Container>((resolve, reject) => {
     try {

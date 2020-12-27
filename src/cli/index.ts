@@ -7,7 +7,7 @@ import init from './commands/init/init'
 
 program
   .name('tron')
-  .version('0.1.0', '-v, --version', 'Output the current version of Tron CLI')
+  .version('0.1.1', '-v, --version', 'output the current version of Tron CLI')
 
 // init command
 program

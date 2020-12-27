@@ -1,12 +1,13 @@
-import 'reflect-metadata'
-import 'colors'
+import { cyan, green } from 'colors'
 import cors from 'cors'
 import { urlencoded, json } from 'body-parser'
 import { InversifyExpressServer } from 'inversify-express-utils'
 import { Container } from 'inversify'
 
 export function app (container: Container): void {
-  const rootPath = process.env.ROOT_PATH ?? '/'
+  const host = process.env.H ?? 'http://localhost'
+  const port = process.env.P ?? 8080
+  const rootPath = process.env.RP ?? '/'
 
   const server = new InversifyExpressServer(container, null, { rootPath })
   // new InversifyExpressServer(DIContainer, null, null, null, AuthProvider)
@@ -14,7 +15,7 @@ export function app (container: Container): void {
   server.setConfig(app => {
     app.use(
       cors({
-        origin: process.env.CORS_ORIGIN,
+        origin: process.env.CO,
         optionsSuccessStatus: 200
       })
     )
@@ -25,10 +26,10 @@ export function app (container: Container): void {
   const app = server.build()
 
   app.listen(
-    process.env.PORT,
+    port,
     () => console.log(
-      'Server is now running on:'.green,
-      `${process.env.HOST}:${process.env.PORT}${rootPath}\n`.cyan
+      green('Server is now running on:'),
+      cyan(`${host}:${port}${rootPath}\n`)
     )
   )
 }

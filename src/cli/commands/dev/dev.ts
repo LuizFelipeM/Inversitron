@@ -1,25 +1,30 @@
-import { cyan, green, red } from 'colors'
+import { cyan } from 'colors'
 import { Command } from 'commander'
 import nodemon from 'nodemon'
 import readConfigFile from '../../utils/readConfigFile'
 
 export function runInversitronApp (configPath: string): void {
-  console.log(green('Starting server...'))
-  const { nodemon: config } = readConfigFile(configPath)
+  const configs = readConfigFile(configPath)
 
   nodemon({
-    ...config,
+    ...configs.nodemon,
+    spawn: true,
     env: {
-      ...config.env,
+      ...configs.nodemon.env,
       NODE_ENV: 'DEV',
-      CONFIGURATION_FILE_PATH: configPath
+      H: 'http://localhost',
+      P: configs.dev.port,
+      RP: configs.dev.rootPath,
+      CO: configs.dev.corsOrigin,
+      CFP: configPath,
+      REPOS_P: configs.repositoriesPath,
+      CTRLS_P: configs.controllersPath,
+      SERVS_P: configs.servicesPath
     }
   })
-    .on('log', (...args) => console.log(args))
-    .on('crash', (...args) => console.error(args.map(red)))
-    .on('start', () => console.log(cyan('Server started')))
-    .on('restart', () => console.log(cyan('Server restarted')))
-    .on('exit', () => console.log(cyan('Server shut down')))
+    .on('start', () => console.log(cyan('\nServer started\n')))
+    .on('restart', () => console.log(cyan('\nServer restarted\n')))
+    .on('exit', () => console.log(cyan('\nServer shut down\n')))
 }
 
 const dev = (cmd: Command): void => runInversitronApp(cmd.config)

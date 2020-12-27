@@ -15,12 +15,15 @@ interface IEnvironmentConfig {
 }
 
 export interface ITronConfig {
+  repositoriesPath: string
+  controllersPath: string
+  servicesPath: string
   nodemon: Settings
   dev: IEnvironmentConfig
   prod: IEnvironmentConfig
 }
 
-export const tronConfig: ITronConfig = {
+export const tronConfig: Partial<ITronConfig> = {
   nodemon: {
     ext: 'ts',
     exec: 'node --inspect=5858 -r ts-node/register ./src/index.ts',
@@ -42,7 +45,7 @@ export const tronConfig: ITronConfig = {
     database: {
       type: 'postgres',
       host: 'localhost',
-      port: 3306,
+      port: 5432,
       username: 'db_username',
       password: 'db_password',
       database: 'db_name',
@@ -61,7 +64,7 @@ export const tronConfig: ITronConfig = {
     database: {
       type: 'postgres',
       host: 'localhost',
-      port: 3306,
+      port: 5432,
       username: 'db_username',
       password: 'db_password',
       database: 'db_name',
