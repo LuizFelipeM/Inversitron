@@ -1,6 +1,6 @@
 {
   "name": "inversitron",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Simple framework based on InversifyJS",
   "main": "dist/index.js",
   "bin": {
@@ -22,18 +22,16 @@
     "url": "git+https://github.com/LuizFelipeM/Inversitron.git"
   },
   "keywords": [
-    "inversitron",
     "Inversitron",
     "Inversify",
-    "inversify",
-    "inversifyJs",
+    "InversifyJs",
     "typeorm",
-    "orm",
-    "framework",
-    "DDD",
     "Express",
     "Jest",
-    "glob"
+    "glob",
+    "orm",
+    "framework",
+    "DDD"
   ],
   "author": {
     "name": "Luiz Felipe Moura",
