@@ -1,10 +1,10 @@
-<h1 align="left">
+<p align="left">
   <img
     alt="inversitron"
     title="inversitron"
     src="https://i.ibb.co/XFwrCRW/Inversitron-full-logo.png"
   />
-</h1>
+</p>
 
 Simple DDD based micro web framework.
 
