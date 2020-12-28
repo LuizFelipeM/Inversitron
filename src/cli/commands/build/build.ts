@@ -1,7 +1,8 @@
-import { cyan } from 'colors'
+import { red } from 'colors'
 
 function buildProductionApp (): void {
-  console.log(cyan('Building project'))
+  const notImplemented = red('Build command not implemented')
+  throw new Error(notImplemented)
 }
 
 const build = (): void => buildProductionApp()
