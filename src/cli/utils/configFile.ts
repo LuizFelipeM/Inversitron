@@ -3,9 +3,7 @@ import { ConnectionOptions } from 'typeorm'
 
 export const configFileName = 'tronconfig'
 
-export const configFileExt = '.json'
-
-export const fullConfigFileName = `${configFileName}${configFileExt}`
+export const configFileExt = 'json'
 
 interface IEnvironmentConfig {
   rootPath: string
