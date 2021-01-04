@@ -13,7 +13,6 @@ program
 program
   .command('init <name>')
   .description('create the tron configuration json file used by Tron and Inversitron')
-  .option('-a, --all', 'Create all folders and files to DDD project structure')
   .action(init)
 
 // dev command

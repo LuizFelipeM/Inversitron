@@ -1,22 +1,15 @@
-import { index, Post, PostController, PostRepository, PostService } from '../../templates/initFiles'
+import { index, entity, controller, repository, service } from '../../../templates/initFiles'
+import FileExt from '../../enums/fileExt'
+import { IFilesByPath } from '../../interfaces/FilesInterfaces'
 
-interface IFile {
-  name: string
-  file: string
-}
-
-interface IFilesByPath {
-  path: string
-  files?: IFile[]
-}
-
-export const filesByPath: IFilesByPath[] = [
+export const initFiles: IFilesByPath[] = [
   {
     path: './',
     files: [
       {
         name: 'index',
-        file: index
+        file: index,
+        ext: FileExt.ts
       }
     ]
   },
@@ -25,7 +18,8 @@ export const filesByPath: IFilesByPath[] = [
     files: [
       {
         name: 'PostController',
-        file: PostController
+        file: controller,
+        ext: FileExt.ts
       }
     ]
   },
@@ -34,7 +28,8 @@ export const filesByPath: IFilesByPath[] = [
     files: [
       {
         name: 'PostRepository',
-        file: PostRepository
+        file: repository,
+        ext: FileExt.ts
       }
     ]
   },
@@ -43,7 +38,8 @@ export const filesByPath: IFilesByPath[] = [
     files: [
       {
         name: 'PostService',
-        file: PostService
+        file: service,
+        ext: FileExt.ts
       }
     ]
   },
@@ -55,7 +51,8 @@ export const filesByPath: IFilesByPath[] = [
     files: [
       {
         name: 'Post',
-        file: Post
+        file: entity,
+        ext: FileExt.ts
       }
     ]
   }

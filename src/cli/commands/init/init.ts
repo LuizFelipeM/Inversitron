@@ -1,52 +1,57 @@
-import { cyan, green, red } from 'colors'
-import { writeFileSync } from 'fs'
+import { green, red } from 'colors'
 import { cwd } from 'process'
-import { join } from 'path'
-import { configFileExt, configFileName, tronConfig } from '../../utils/configFile'
-import { Command } from 'commander'
+import { configFileName, tronConfig } from '../../utils/configFile'
 import fileGenerator from '../../utils/fileGenerator'
-import { pkgJson } from '../../../templates/initFiles'
 import { exec } from 'child_process'
-import tsconfig from '../../../templates/tsconfig.json'
+import { initFiles } from './initFiles'
+import packageGenerator from '../../../templates/packageGenarator'
+import tsconfig from '../../../templates/tsconfig'
+import { makeFilesInDirectory } from '../../utils/directoryUtils'
+import FileExt from '../../enums/fileExt'
+import { convertToJson } from '../../utils/convertUtils'
+import ora from 'ora'
 
-export const getJsonFile = (file: unknown): string => JSON.stringify(file, null, 2)
+function createFiles (name: string): void {
+  const loading = ora({
+    color: 'cyan',
+    spinner: 'simpleDotsScrolling'
+  })
 
-export const writeFilesToPath = (origin: string, ext: string) => (file: string, fileName: string, path = './'): void => writeFileSync(join(origin, path, `${fileName}.${ext}`), file)
+  loading.start('Creating Inversitron configuration files')
 
-function initFiles (name: string, path: string, createAll = false): void {
-  const tronConfigFile = getJsonFile(tronConfig)
+  const path = cwd()
 
-  const mkJsonFile = writeFilesToPath(path, configFileExt)
+  const packageJson = convertToJson(packageGenerator(name))
+  const tsconfigJson = convertToJson(tsconfig)
+  const tronConfigJson = convertToJson(tronConfig)
 
-  mkJsonFile(tronConfigFile, configFileName)
-  mkJsonFile(getJsonFile(pkgJson(name)), 'package')
-  mkJsonFile(getJsonFile(tsconfig), 'tsconfig')
+  const mkFiles = makeFilesInDirectory(path)
 
-  if (createAll) {
-    fileGenerator(path)
-    console.log(cyan('Installing packages...'))
-    exec('npm install', (err) => {
-      if (err) {
-        throw err
-      }
+  mkFiles(tronConfigJson, configFileName, FileExt.json)
+  mkFiles(packageJson, 'package', FileExt.json)
+  mkFiles(tsconfigJson, 'tsconfig', FileExt.json)
 
-      console.log(green(`App ${name} successfully created`))
-    })
-  }
+  fileGenerator(`${path}/src`, initFiles)
+
+  loading.succeed(green('All files created'))
+  loading.start('Installing packages')
+
+  exec('npm install', (err) => {
+    if (err) {
+      loading.fail(red(`Package installation ${err}`))
+    }
+
+    loading.succeed(green(`Packages installed, app ${name} successfully created`))
+  })
 }
 
-function init (name: string, cmd: Command): void {
+function init (name: string): void {
   try {
     if (!name) {
       throw new Error('Missing application name')
     }
 
-    const path = cwd()
-    const createAll: boolean = cmd.all
-
-    console.log(cyan(`Creating inversitron configuration file${createAll ? 's' : ''}...`))
-
-    initFiles(name, path, createAll)
+    createFiles(name)
   } catch (err) {
     console.error(red(err))
   }
