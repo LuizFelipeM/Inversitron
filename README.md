@@ -37,9 +37,9 @@ The Inversitron package comes with Inversitron, the framework itself thats used 
 
 To start a Inversitron application run:
 ```powershell
-$ npx tron init
+$ npx tron init myapp
 # or run it globally
-$ tron init
+$ tron init myapp
 ```
 
 After running `init` command a simple setup will be added to the current work directory with a `tronconfig.json` file that provides Inversitron configuration about your application.

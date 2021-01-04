@@ -1,6 +1,6 @@
 {
   "name": "inversitron",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Simple framework based on InversifyJS",
   "main": "dist/index.js",
   "bin": {
