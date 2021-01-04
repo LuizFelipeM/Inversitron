@@ -1,15 +1,18 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { cwd } from 'process'
-import { fullConfigFileName, ITronConfig } from './configFile'
+import { configFileName } from './configFile'
+import FileExt from '../enums/fileExt'
+import { ITronConfig } from '../interfaces/TronConfignterfaces'
 
 function readConfigFile (path: string = cwd()): ITronConfig {
   try {
-    const data = readFileSync(join(path, fullConfigFileName))
+    const configFilePath = join(path, `${configFileName}${FileExt.json}`)
+    const data = readFileSync(configFilePath).toString('utf-8')
 
-    return JSON.parse(data.toString('utf-8'))
+    return JSON.parse(data)
   } catch (err) {
-    throw new Error(`Unable to find ${fullConfigFileName} file in ${path}`)
+    throw new Error(`Unable to find ${configFileName}${FileExt.json} file in ${path}`)
   }
 }
 

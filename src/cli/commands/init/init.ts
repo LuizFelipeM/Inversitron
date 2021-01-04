@@ -1,29 +1,57 @@
-import { cyan, red } from 'colors'
-import { writeFileSync } from 'fs'
+import { green, red } from 'colors'
 import { cwd } from 'process'
-import { join } from 'path'
-import { fullConfigFileName, tronConfig } from '../../utils/configFile'
-import { Command } from 'commander'
+import { configFileName, tronConfig } from '../../utils/configFile'
+import fileGenerator from '../../utils/fileGenerator'
+import { exec } from 'child_process'
+import { initFiles } from './initFiles'
+import packageGenerator from '../../../templates/packageGenarator'
+import tsconfig from '../../../templates/tsconfig'
+import { makeFilesInDirectory } from '../../utils/directoryUtils'
+import FileExt from '../../enums/fileExt'
+import { convertToJson } from '../../utils/convertUtils'
+import ora from 'ora'
 
-export const getJsonFile = (file: unknown): string => JSON.stringify(file, null, 2)
+function createFiles (name: string): void {
+  const loading = ora({
+    color: 'cyan',
+    spinner: 'simpleDotsScrolling'
+  })
 
-export const writeFilesToPath = (path: string) => (file: string, fileName: string): void => writeFileSync(join(path, fileName), file)
+  loading.start('Creating Inversitron configuration files')
 
-function initFiles (path: string): void {
-  const tronConfigFile = getJsonFile(tronConfig)
+  const path = cwd()
 
-  const pathSelected = writeFilesToPath(path)
+  const packageJson = convertToJson(packageGenerator(name))
+  const tsconfigJson = convertToJson(tsconfig)
+  const tronConfigJson = convertToJson(tronConfig)
 
-  pathSelected(tronConfigFile, fullConfigFileName)
+  const mkFiles = makeFilesInDirectory(path)
+
+  mkFiles(tronConfigJson, configFileName, FileExt.json)
+  mkFiles(packageJson, 'package', FileExt.json)
+  mkFiles(tsconfigJson, 'tsconfig', FileExt.json)
+
+  fileGenerator(`${path}/src`, initFiles)
+
+  loading.succeed(green('All files created'))
+  loading.start('Installing packages')
+
+  exec('npm install', (err) => {
+    if (err) {
+      loading.fail(red(`Package installation ${err}`))
+    }
+
+    loading.succeed(green(`Packages installed, app ${name} successfully created`))
+  })
 }
 
-function init (path: string = cwd(), cmd: Command): void {
+function init (name: string): void {
   try {
-    const createAll: boolean = cmd.all
+    if (!name) {
+      throw new Error('Missing application name')
+    }
 
-    console.log(cyan(`Creating inversitron configuration file${createAll ? 's' : ''}...`))
-
-    initFiles(path)
+    createFiles(name)
   } catch (err) {
     console.error(red(err))
   }

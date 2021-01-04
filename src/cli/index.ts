@@ -7,13 +7,12 @@ import init from './commands/init/init'
 
 program
   .name('tron')
-  .version('0.1.1', '-v, --version', 'output the current version of Tron CLI')
+  .version('0.3.4', '-v, --version', 'output the current version of Tron CLI')
 
 // init command
 program
-  .command('init [path]')
+  .command('init <name>')
   .description('create the tron configuration json file used by Tron and Inversitron')
-  .option('-a, --all', 'Create all folders and files to DDD project structure')
   .action(init)
 
 // dev command
