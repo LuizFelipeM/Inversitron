@@ -1,6 +1,15 @@
 import { PrimaryGeneratedColumn } from 'typeorm'
 
-export abstract class AbstractEntity {
+export interface IAbstractEntity {
+  id: string | number
+}
+
+export abstract class AbstractSerialEntity implements IAbstractEntity {
   @PrimaryGeneratedColumn()
   id: number
+}
+
+export abstract class AbstractUuidEntity implements IAbstractEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 }

@@ -1,14 +1,14 @@
 import { injectable } from 'inversify'
 import { httpGet, httpPost, httpDelete, requestParam, requestBody, interfaces, BaseHttpController, httpPatch } from 'inversify-express-utils'
 import { DeepPartial } from 'typeorm'
-import { AbstractEntity } from '../entities/AbstractEntity'
+import { AbstractSerialEntity } from '../entities/AbstractEntity'
 import { AbstractRepository } from '../repositories/AbstractRepository'
 import { AbstractService } from '../services/AbstractService'
 
-type Service<T extends AbstractEntity> = AbstractService<T, AbstractRepository<T>>
+type Service<T extends AbstractSerialEntity> = AbstractService<T, AbstractRepository<T>>
 
 @injectable()
-export abstract class AbstractController<T extends AbstractEntity, S extends Service<T>> extends BaseHttpController implements interfaces.Controller {
+export abstract class AbstractController<T extends AbstractSerialEntity, S extends Service<T>> extends BaseHttpController implements interfaces.Controller {
   constructor (private readonly service: S) { super() }
 
   @httpGet('/getAll')
@@ -22,12 +22,12 @@ export abstract class AbstractController<T extends AbstractEntity, S extends Ser
   }
 
   @httpPost('/')
-  async post (@requestBody() body: DeepPartial<T>): Promise<{ id: number }> {
+  async post (@requestBody() body: DeepPartial<T>): Promise<{ id: number | string }> {
     return await this.service.saveOrUpdate(body)
   }
 
   @httpPatch('/')
-  async patch (@requestBody() body: DeepPartial<T>): Promise<{ id: number }> {
+  async patch (@requestBody() body: DeepPartial<T>): Promise<{ id: number | string }> {
     return await this.service.saveOrUpdate(body)
   }
 

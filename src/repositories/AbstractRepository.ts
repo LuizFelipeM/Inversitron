@@ -1,9 +1,9 @@
 import { injectable, unmanaged } from 'inversify'
 import { DeepPartial, DeleteResult, EntityTarget, FindConditions, getRepository, Repository } from 'typeorm'
-import { AbstractEntity } from '../entities/AbstractEntity'
+import { IAbstractEntity } from '../entities/AbstractEntity'
 
 @injectable()
-export abstract class AbstractRepository<T extends AbstractEntity> {
+export abstract class AbstractRepository<T extends IAbstractEntity> {
   protected readonly session: Repository<T>
 
   constructor (
@@ -15,7 +15,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
 
   selectById = async (id: number): Promise<T | undefined> => await this.session.findOne(id)
 
-  insertOrUpdate = async (data: DeepPartial<T>): Promise<{ id: number }> => await this.session.save(data)
+  insertOrUpdate = async (data: DeepPartial<T>): Promise<{ id: number | string }> => await this.session.save(data)
 
   delete = async (removeCriteria: string | number | FindConditions<T> | string[] | number[] | Date | Date[]): Promise<DeleteResult> => await this.session.delete(removeCriteria)
 }

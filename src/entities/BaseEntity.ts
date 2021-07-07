@@ -1,7 +1,15 @@
 import { Column } from 'typeorm'
-import { AbstractEntity } from './AbstractEntity'
+import { AbstractSerialEntity, AbstractUuidEntity } from './AbstractEntity'
 
-export class BaseEntity extends AbstractEntity {
+export class BaseSerialEntity extends AbstractSerialEntity {
+  @Column()
+  updatedAt: Date
+
+  @Column()
+  createdAt: Date
+}
+
+export class BaseUuidEntity extends AbstractUuidEntity {
   @Column()
   updatedAt: Date
 

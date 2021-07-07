@@ -1,6 +1,6 @@
 import { AbstractController } from './controllers/AbstractController'
-import { AbstractEntity } from './entities/AbstractEntity'
-import { BaseEntity } from './entities/BaseEntity'
+import { AbstractSerialEntity } from './entities/AbstractEntity'
+import { BaseSerialEntity } from './entities/BaseEntity'
 import { AbstractRepository } from './repositories/AbstractRepository'
 import { AbstractService } from './services/AbstractService'
 import { interfaces } from 'inversify-express-utils'
@@ -14,8 +14,8 @@ export type { interfaces }
 
 export {
   ignition,
-  BaseEntity,
-  AbstractEntity,
+  BaseSerialEntity as BaseEntity,
+  AbstractSerialEntity as AbstractEntity,
   AbstractRepository,
   AbstractService,
   AbstractController
