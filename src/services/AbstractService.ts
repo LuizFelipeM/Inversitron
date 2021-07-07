@@ -1,12 +1,12 @@
 import { AbstractRepository } from '../repositories/AbstractRepository'
 import { injectable } from 'inversify'
-import { AbstractSerialEntity } from '../entities/AbstractEntity'
+import { IAbstractEntity } from '../entities/AbstractEntity'
 import { DeepPartial, DeleteResult, FindConditions } from 'typeorm'
 
-type Repository<T extends AbstractSerialEntity> = AbstractRepository<T>
+type Repository<T extends IAbstractEntity> = AbstractRepository<T>
 
 @injectable()
-export abstract class AbstractService<T extends AbstractSerialEntity, R extends Repository<T>> {
+export abstract class AbstractService<T extends IAbstractEntity, R extends Repository<T>> {
   constructor (private readonly repository: R) {}
 
   getAll = async (search?: FindConditions<T>): Promise<T[]> => await this.repository.select(search)
