@@ -5,7 +5,7 @@ export interface IAbstractEntity {
 }
 
 export abstract class AbstractSerialEntity implements IAbstractEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number
 }
 
