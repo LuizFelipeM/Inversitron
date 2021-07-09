@@ -13,7 +13,7 @@ export abstract class AbstractService<T extends IAbstractEntity, R extends Repos
 
   getById = async (id: number): Promise<T | undefined> => await this.repository.selectById(id)
 
-  saveOrUpdate = (data: DeepPartial<T>): Promise<{ id: number | string }> => this.repository.insertOrUpdate(data)
+  saveOrUpdate = (data: DeepPartial<T>): Promise<T> => this.repository.insertOrUpdate(data)
 
   remove = (data: T): Promise<DeleteResult> => this.repository.delete(data.id)
 }

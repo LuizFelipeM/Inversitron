@@ -1,7 +1,8 @@
 import { PrimaryGeneratedColumn } from 'typeorm'
+import { EntityID } from '../types/EntityIDType'
 
 export interface IAbstractEntity {
-  id: string | number
+  id: EntityID
 }
 
 export abstract class AbstractSerialEntity implements IAbstractEntity {

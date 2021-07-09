@@ -22,12 +22,12 @@ export abstract class AbstractController<T extends IAbstractEntity, S extends Se
   }
 
   @httpPost('/')
-  async post (@requestBody() body: DeepPartial<T>): Promise<{ id: number | string }> {
+  async post (@requestBody() body: DeepPartial<T>): Promise<T> {
     return await this.service.saveOrUpdate(body)
   }
 
   @httpPatch('/')
-  async patch (@requestBody() body: DeepPartial<T>): Promise<{ id: number | string }> {
+  async patch (@requestBody() body: DeepPartial<T>): Promise<T> {
     return await this.service.saveOrUpdate(body)
   }
 
