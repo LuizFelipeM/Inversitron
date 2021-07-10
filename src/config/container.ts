@@ -13,9 +13,9 @@ export function buildContainer (): Promise<Container> {
 
   const configFile = readConfigFile()
 
-  const reposPath = process.env.REPOS_P ?? join('build', configFile.repositoriesPath.replace('src', '') ?? 'repositories')
-  const servsPath = process.env.SERVS_P ?? join('build', configFile.servicesPath.replace('src', '') ?? 'services')
-  const ctrlsPath = process.env.CTRLS_P ?? join('build', configFile.controllersPath.replace('src', '') ?? 'controllers')
+  const reposPath = process.env.REPOS_P ?? join('build', configFile.repositoriesPath?.replace('src', '') ?? 'repositories')
+  const servsPath = process.env.SERVS_P ?? join('build', configFile.servicesPath?.replace('src', '') ?? 'services')
+  const ctrlsPath = process.env.CTRLS_P ?? join('build', configFile.controllersPath?.replace('src', '') ?? 'controllers')
 
   const repositoriesPath = join(dir, reposPath)
   const servicesPath = join(dir, servsPath)

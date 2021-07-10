@@ -3,11 +3,14 @@ import cors from 'cors'
 import { urlencoded, json } from 'body-parser'
 import { InversifyExpressServer } from 'inversify-express-utils'
 import { Container } from 'inversify'
+import readConfigFile from '../cli/utils/readConfigFile'
 
 export function app (container: Container): void {
-  const host = process.env.H ?? 'http://localhost'
-  const port = process.env.P ?? 8080
-  const rootPath = process.env.RP ?? '/'
+  const { prod } = readConfigFile()
+
+  const host = process.env.H
+  const port = process.env.P ?? prod.port
+  const rootPath = process.env.RP ?? prod.rootPath
 
   const server = new InversifyExpressServer(container, null, { rootPath })
   // new InversifyExpressServer(DIContainer, null, null, null, AuthProvider)
