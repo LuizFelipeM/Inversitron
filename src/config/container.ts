@@ -2,6 +2,7 @@ import { glob } from 'glob'
 import { Container, interfaces } from 'inversify'
 import { join } from 'path'
 import { cwd } from 'process'
+import readConfigFile from '../cli/utils/readConfigFile'
 
 type FileContent = {
   [x: string]: interfaces.ServiceIdentifier<unknown>
@@ -10,9 +11,15 @@ type FileContent = {
 export function buildContainer (): Promise<Container> {
   const dir = cwd()
 
-  const repositoriesPath = join(dir, process.env.REPOS_P ?? './src/repositories')
-  const servicesPath = join(dir, process.env.SERVS_P ?? './src/services')
-  const controllersPath = join(dir, process.env.CTRLS_P ?? './src/controllers')
+  const configFile = readConfigFile()
+
+  const reposPath = process.env.REPOS_P ?? join('build', configFile.repositoriesPath.replace('src', '') ?? 'repositories')
+  const servsPath = process.env.SERVS_P ?? join('build', configFile.servicesPath.replace('src', '') ?? 'services')
+  const ctrlsPath = process.env.CTRLS_P ?? join('build', configFile.controllersPath.replace('src', '') ?? 'controllers')
+
+  const repositoriesPath = join(dir, reposPath)
+  const servicesPath = join(dir, servsPath)
+  const controllersPath = join(dir, ctrlsPath)
 
   const promiseContainer = new Promise<Container>((resolve, reject) => {
     try {

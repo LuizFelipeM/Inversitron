@@ -17,9 +17,9 @@ export function runInversitronApp (configPath: string): void {
       RP: configs.dev.rootPath,
       CO: configs.dev.corsOrigin,
       CFP: configPath,
-      REPOS_P: configs.repositoriesPath,
-      CTRLS_P: configs.controllersPath,
-      SERVS_P: configs.servicesPath
+      REPOS_P: configs.repositoriesPath ?? './src/repositories',
+      CTRLS_P: configs.controllersPath ?? './src/controllers',
+      SERVS_P: configs.servicesPath ?? './src/services'
     }
   })
     .on('start', () => console.log(cyan('\nServer started\n')))

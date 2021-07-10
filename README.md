@@ -24,7 +24,7 @@ Inversitron is a simple micro framework based on InversifyJS, TypeORM and Expres
 ## Getting Started
 
 Install Inversitron as a dependency:
-```powershell
+```bash
 # locally
 $ npm i inversitron
 # or globaly
@@ -36,9 +36,9 @@ The Inversitron package comes with Inversitron, the framework itself thats used 
 ### Setup
 
 To start a Inversitron application run:
-```powershell
+```bash
 $ npx tron init myapp
-# or run it globally
+# or
 $ tron init myapp
 ```
 
@@ -47,7 +47,7 @@ After running `init` command a simple setup will be added to the current work di
 ### Running in development mode
 
 Run the application in development environment using the Tron CLI:
-```powershell
+```bash
 $ npx tron dev
 # or
 $ tron dev
@@ -56,7 +56,7 @@ $ tron dev
 ### Build application for production
 
 In order to build Inversitron application run the `build` command (currently unavailable):
-```powershell
+```bash
 $ npx tron build
 # or
 $ tron build
