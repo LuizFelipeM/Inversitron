@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs'
 import { glob } from 'glob'
 import { Container, interfaces } from 'inversify'
 import { join } from 'path'
@@ -12,10 +13,13 @@ export function buildContainer (): Promise<Container> {
   const dir = cwd()
 
   const configFile = readConfigFile()
+  const { compilerOptions: { outDir, rootDir } } = JSON.parse(readFileSync(join(dir, 'tsconfig.json')).toString('utf-8'))
 
-  const reposPath = process.env.REPOS_P ?? join('build', configFile.repositoriesPath?.replace('src', '') ?? 'repositories')
-  const servsPath = process.env.SERVS_P ?? join('build', configFile.servicesPath?.replace('src', '') ?? 'services')
-  const ctrlsPath = process.env.CTRLS_P ?? join('build', configFile.controllersPath?.replace('src', '') ?? 'controllers')
+  const buildPath = (path: string, defaultPath: string) => join(outDir, path?.replace(rootDir, '') ?? defaultPath)
+
+  const reposPath = process.env.REPOS_P ?? buildPath(configFile.repositoriesPath, 'repositories')
+  const servsPath = process.env.SERVS_P ?? buildPath(configFile.servicesPath, 'services')
+  const ctrlsPath = process.env.CTRLS_P ?? buildPath(configFile.controllersPath, 'controllers')
 
   const repositoriesPath = join(dir, reposPath)
   const servicesPath = join(dir, servsPath)

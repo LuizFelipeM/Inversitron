@@ -1,10 +1,16 @@
 import { cyan } from 'colors'
 import { Command } from 'commander'
+import { readFileSync } from 'fs'
 import nodemon from 'nodemon'
+import { join } from 'path'
+import { cwd } from 'process'
 import readConfigFile from '../../utils/readConfigFile'
 
-export function runInversitronApp (configPath: string): void {
+export function runInversitronApp (configPath?: string): void {
+  const configFilePath = configPath ?? cwd()
+
   const configs = readConfigFile(configPath)
+  const { compilerOptions: { rootDir } } = JSON.parse(readFileSync(join(configFilePath, 'tsconfig.json')).toString('utf-8'))
 
   nodemon({
     ...configs.nodemon,
@@ -16,10 +22,10 @@ export function runInversitronApp (configPath: string): void {
       P: configs.dev.port ?? 8080,
       RP: configs.dev.rootPath ?? '/',
       CO: configs.dev.corsOrigin,
-      CFP: configPath,
-      REPOS_P: configs.repositoriesPath ?? './src/repositories',
-      CTRLS_P: configs.controllersPath ?? './src/controllers',
-      SERVS_P: configs.servicesPath ?? './src/services'
+      CFP: configFilePath,
+      REPOS_P: configs.repositoriesPath ?? join(rootDir, 'repositories'),
+      CTRLS_P: configs.controllersPath ?? join(rootDir, 'controllers'),
+      SERVS_P: configs.servicesPath ?? join(rootDir, 'services')
     }
   })
     .on('start', () => console.log(cyan('\nServer started\n')))

@@ -49,7 +49,7 @@ export const tronConfig: Partial<ITronConfig> = {
       database: 'db_name',
       synchronize: true,
       logging: false,
-      entities: ['src/**/entities/**/*.{t,j}s']
+      entities: ['dist/**/entities/**/*.{t,j}s']
     }
   }
 }
