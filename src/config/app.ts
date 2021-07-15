@@ -9,7 +9,7 @@ export function app (container: Container): void {
   const { prod } = readConfigFile()
 
   const host = process.env.H
-  const port = process.env.P ?? prod.port
+  const port = process.env.PORT ?? prod.port
   const rootPath = process.env.RP ?? prod.rootPath
 
   const server = new InversifyExpressServer(container, null, { rootPath })

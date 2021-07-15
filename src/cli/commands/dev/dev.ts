@@ -19,7 +19,7 @@ export function runInversitronApp (configPath?: string): void {
       ...configs.nodemon.env,
       NODE_ENV: 'DEV',
       H: 'http://localhost',
-      P: configs.dev.port ?? 8080,
+      PORT: configs.dev.port ?? 5000,
       RP: configs.dev.rootPath ?? '/',
       CO: configs.dev.corsOrigin,
       CFP: configFilePath,
